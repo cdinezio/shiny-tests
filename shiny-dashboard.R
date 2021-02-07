@@ -3,7 +3,7 @@ library(tidyverse)
 library(lubridate)
 library(ggplot2)
 library(shinydashboard)
-
+library(forcats)
 
 
 
@@ -100,8 +100,8 @@ ui <- dashboardPage(
                 fluidRow(
                     box(title = "Solicitudes por genero",
                         solidHeader = TRUE,
-                        width = 4,
-                        plotOutput(outputId = "potenciar_trabajo_total", height = 1080)
+                        width = 12,
+                        plotOutput(outputId = "potenciar_trabajo_total", height = 1000)
                     )
         
         )
@@ -113,7 +113,7 @@ ui <- dashboardPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
     armas_2019 <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/armas_2019.csv") %>% mutate(fecha_publicacion = dmy(fecha_publicacion))
-    potenciar_trabajo_2020 <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/potenciar_trabajo.csv")
+    potenciar_trabajo_2020 <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/potenciar_trabajo.csv") %>% filter(!is.na(provincia))
     set.seed(122)
     histdata <- rnorm(500)
     
@@ -125,7 +125,7 @@ server <- function(input, output) {
     ### Armas de fuego - Output
     output$armas_genero_2019 <- renderPlot({
         
-        armas_2019 %>% count(genero) %>% filter(genero %in% c("masculino","femenino")) %>% ggplot(aes(genero,n, fill = genero)) + geom_col() + theme(legend.position = 0)
+        armas_2019 %mes)>% count(genero) %>% filter(genero %in% c("masculino","femenino")) %>% ggplot(aes(genero,n, fill = genero)) + geom_col() + theme(legend.position = 0)
     })
     output$armas_meses_2019 <- renderPlot({
         #armas_2019 <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/armas_2019.csv")
@@ -137,8 +137,9 @@ server <- function(input, output) {
     
     output$potenciar_trabajo_total <- renderPlot({
         
-        potenciar_trabajo_2020 %>% ggplot(aes(provincia,n, fill = provincia)) + geom_col() + theme(legend.position = 0) +
-            facet_wrap(.~mes)
+        potenciar_trabajo_2020 %>% mutate(provincia = fct_reorder(provincia,n,sum)) %>% ggplot(aes(provincia,n, fill = provincia)) + geom_col() + theme(legend.position = 0) +
+            coord_flip() + scale_fill_viridis_d(option = "A",direction = -1) + scale_y_continuous(labels = scales::dollar) +
+                labs(title = "Pagos por el programa Progresar Trabajo")
     })
     
     
