@@ -36,11 +36,12 @@ ui <- dashboardPage(
     # Creas un sidebar, y adentro le pones el sidebarMenu() (importante el id), y adentro de eso los items
     # que queres ver en el sidebar. 
     dashboardSidebar(
+        width = 270,
         sidebarMenu(
             id = "tabs",
             menuItem(text = "Informacion general", tabName = "info_general",icon = icon("dashboard"),badgeLabel = "new"),
             menuItem(text = "Armas de fuego", tabName = "armas_fuego",icon = icon("dashboard")),
-            menuItem(text = "blank", tabName = "a",icon = icon("dashboard")),
+            menuItem(text = "Min. de Desarrollo Social de la Nación", tabName = "min_des_social",icon = icon("dashboard")),
             menuItem(text = "blank", tabName = "b",icon = icon("dashboard")),
             menuItem(text = "blank", tabName = "c",icon = icon("dashboard")),
             menuItem(text = "blank", tabName = "d",icon = icon("dashboard"))
@@ -76,7 +77,7 @@ ui <- dashboardPage(
                         footer = "Select the relevant properties",
                         status = "info",
                         p("I dont know where this is ending up"),
-                            )
+                        )
                         )
             ),
         ### Armas de fuego    
@@ -92,14 +93,21 @@ ui <- dashboardPage(
                     width = 8,
                     plotOutput(outputId = "armas_meses_2019", height = 1080)
                 )
-                
-            )
-                
-            )
+                )
+                ),
+        ## Progresar
+        tabItem(tabName = "min_des_social",
+                fluidRow(
+                    box(title = "Solicitudes por genero",
+                        solidHeader = TRUE,
+                        width = 4,
+                        plotOutput(outputId = "armas_genero_201999999", height = 1080)
+                    )
+        
         )
-    ),
-
-
+    )
+)
+)
 )
 
 # Define server logic required to draw a histogram
@@ -124,6 +132,14 @@ server <- function(input, output) {
             filter(genero %in% c("masculino","femenino")) %>% ggplot(aes(as.factor(mes),n, fill = genero)) + geom_col(position = "dodge") +
             scale_y_continuous(breaks = seq(0,6000,1000)) + theme(legend.position = 0)
     })
+    
+    
+    output$armas_genero_201999999 <- renderPlot({
+        
+        armas_2019 %>% count(genero) %>% filter(genero %in% c("masculino","femenino")) %>% ggplot(aes(genero,n, fill = genero)) + geom_col() + theme(legend.position = 0)
+    })
+    
+    
 }
 
 # Run the application 
