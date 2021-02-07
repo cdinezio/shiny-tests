@@ -125,7 +125,7 @@ server <- function(input, output) {
     ### Armas de fuego - Output
     output$armas_genero_2019 <- renderPlot({
         
-        armas_2019 %mes)>% count(genero) %>% filter(genero %in% c("masculino","femenino")) %>% ggplot(aes(genero,n, fill = genero)) + geom_col() + theme(legend.position = 0)
+        armas_2019 %>% count(genero) %>% filter(genero %in% c("masculino","femenino")) %>% ggplot(aes(genero,n, fill = genero)) + geom_col() + theme(legend.position = 0)
     })
     output$armas_meses_2019 <- renderPlot({
         #armas_2019 <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/armas_2019.csv")
@@ -137,8 +137,8 @@ server <- function(input, output) {
     
     output$potenciar_trabajo_total <- renderPlot({
         
-        potenciar_trabajo_2020 %>% mutate(provincia = fct_reorder(provincia,n,sum)) %>% ggplot(aes(provincia,n, fill = provincia)) + geom_col() + theme(legend.position = 0) +
-            coord_flip() + scale_fill_viridis_d(option = "A",direction = -1) + scale_y_continuous(labels = scales::dollar) +
+        potenciar_trabajo_2020 %>% mutate(provincia = fct_reorder(provincia,n,sum)) %>% ggplot(aes(provincia,n, fill = n)) + geom_col() + theme(legend.position = 0) +
+            coord_flip() + scale_fill_gradient() + scale_y_continuous(labels = scales::dollar) +
                 labs(title = "Pagos por el programa Progresar Trabajo")
     })
     
