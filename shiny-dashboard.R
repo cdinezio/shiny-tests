@@ -98,10 +98,17 @@ ui <- dashboardPage(
         ## Progresar
         tabItem(tabName = "min_des_social",
                 fluidRow(
-                    box(title = "Solicitudes por genero",
+                        infoBox(title = "Total programa:",value = tags$p("100", style = "font-size: 200%;")),
+                        infoBox(title = "Cantidad de beneficiarios:"),
+                        infoBox(title = "Monto mensual:"),
+                        ),
+                fluidRow(
+                    box(title = "Desembolsos - Progresar Trabajo",
                         solidHeader = TRUE,
+                        status = "info",
+                        collapsible = TRUE,
                         width = 12,
-                        plotOutput(outputId = "potenciar_trabajo_total", height = 1000)
+                        plotOutput(outputId = "potenciar_trabajo_total",height = 1000)
                     )
         
         )
@@ -137,9 +144,11 @@ server <- function(input, output) {
     
     output$potenciar_trabajo_total <- renderPlot({
         
-        potenciar_trabajo_2020 %>% mutate(provincia = fct_reorder(provincia,n,sum)) %>% ggplot(aes(provincia,n, fill = n)) + geom_col() + theme(legend.position = 0) +
-            coord_flip() + scale_fill_gradient() + scale_y_continuous(labels = scales::dollar) +
-                labs(title = "Pagos por el programa Progresar Trabajo")
+        potenciar_trabajo_2020 %>% count(provincia, wt = n) %>% mutate(provincia = fct_reorder(provincia,n), n = n / 1000000000) %>% ggplot(aes(provincia,n)) + geom_col(fill = "#1d3557") + theme(legend.position = 0) +
+            coord_flip()  + scale_y_continuous(breaks = seq(0,32,2)) +
+                labs(title = "Pagos por el programa Progresar Trabajo", subtitle = "En miles de millones de pesos") +
+                    theme(axis.text.x = element_text(size = 15),axis.text.y = element_text(size = 15),plot.title = element_text(size = 25))
+        
     })
     
     
