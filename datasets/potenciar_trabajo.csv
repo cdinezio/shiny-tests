@@ -1,242 +1,242 @@
-"";"provincia";"mes";"n"
-"1";"Buenos Aires";12;4259469846
-"2";"Buenos Aires";10;3510542700
-"3";"Buenos Aires";11;3496651200
-"4";"Buenos Aires";9;2799687500
-"5";"Buenos Aires";8;2792590000
-"6";"Buenos Aires";6;2672357500
-"7";"Buenos Aires";5;2669884000
-"8";"Buenos Aires";4;2659854000
-"9";"Buenos Aires";3;2658162500
-"10";"Buenos Aires";7;2639896000
-"11";"Tucumán";12;483719535
-"12";"Tucumán";10;410120550
-"13";"Tucumán";11;408797550
-"14";"Ciudad de Buenos Aires";12;364454544
-"15";"Tucumán";9;342201500
-"16";"Tucumán";8;339847000
-"17";"Tucumán";4;325839000
-"18";"Tucumán";6;325703000
-"19";"Tucumán";5;325686000
-"20";"Tucumán";7;324963500
-"21";"Tucumán";3;324394000
-"22";"Ciudad de Buenos Aires";10;293989500
-"23";"Ciudad de Buenos Aires";11;292118400
-"24";"Jujuy";12;279650517
-"25";"Salta";12;276315585
-"26";"Chaco";12;266835732
-"27";"Jujuy";10;237176100
-"28";"Jujuy";11;235985400
-"29";"Misiones";12;233764323
-"30";"Ciudad de Buenos Aires";9;229126000
-"31";"Salta";10;227990700
-"32";"Ciudad de Buenos Aires";8;227349500
-"33";"Córdoba";12;227145924
-"34";"Salta";11;227045700
-"35";"Chaco";10;221111100
-"36";"Chaco";11;220185000
-"37";"Ciudad de Buenos Aires";6;211097500
-"38";"Ciudad de Buenos Aires";5;211004000
-"39";"Ciudad de Buenos Aires";4;209278500
-"40";"Ciudad de Buenos Aires";3;208513500
-"41";"Ciudad de Buenos Aires";7;206286500
-"42";"Santa Fe";12;205046853
-"43";"Santiago del Estero";12;190441086
-"44";"Misiones";10;189756000
-"45";"Misiones";11;189255150
-"46";"Córdoba";10;181600650
-"47";"Córdoba";11;180636750
-"48";"Jujuy";9;179741000
-"49";"Jujuy";8;179477500
-"50";"Salta";9;177123000
-"51";"Salta";8;176137000
-"52";"Chaco";9;171496000
-"53";"Chaco";8;170731000
-"54";"Jujuy";3;169107500
-"55";"Jujuy";4;168971500
-"56";"Jujuy";5;168954500
-"57";"Jujuy";6;168402000
-"58";"Salta";5;167713500
-"59";"Salta";6;167671000
-"60";"Salta";4;166438500
-"61";"Jujuy";7;166243000
-"62";"Salta";3;166030500
-"63";"Salta";7;165758500
-"64";"Santa Fe";10;165601800
-"65";"Santa Fe";11;164619000
-"66";"Chaco";5;163208500
-"67";"Chaco";4;163072500
-"68";"Chaco";6;162970500
-"69";"Chaco";3;162664500
-"70";"Chaco";7;161338500
-"71";"Corrientes";12;155033166
-"72";"Santiago del Estero";10;154838250
-"73";"Santiago del Estero";11;154583100
-"74";"Misiones";9;147203000
-"75";"Misiones";8;146310500
-"76";"Misiones";4;135923500
-"77";"Misiones";5;135847000
-"78";"Misiones";6;135838500
-"79";"Misiones";3;135405000
-"80";"Misiones";7;134963000
-"81";"Córdoba";9;134334000
-"82";"Córdoba";8;133059000
-"83";"Mendoza";12;132481203
-"84";"Corrientes";10;131544000
-"85";"Corrientes";11;130910850
-"86";"Entre Ríos";12;123155745
-"87";"Córdoba";6;121550000
-"88";"Santa Fe";9;121431000
-"89";"Córdoba";5;121201500
-"90";"Córdoba";4;120912500
-"91";"Santiago del Estero";9;120666000
-"92";"Santa Fe";8;120470500
-"93";"Córdoba";3;120190000
-"94";"Córdoba";7;119892500
-"95";"Santiago del Estero";8;119578000
-"96";"San Juan";12;117329907
-"97";"Santa Fe";6;113279500
-"98";"Santa Fe";4;113237000
-"99";"Santa Fe";5;113237000
-"100";"Santiago del Estero";6;112540000
-"101";"Santiago del Estero";7;112268000
-"102";"Santiago del Estero";5;112191500
-"103";"Santiago del Estero";4;112166000
-"104";"Santiago del Estero";3;111919500
-"105";"Santa Fe";3;111741000
-"106";"Santa Fe";7;111452000
-"107";"Mendoza";10;106047900
-"108";"Corrientes";9;105723000
-"109";"Mendoza";11;105547050
-"110";"Corrientes";8;105289500
-"111";"Entre Ríos";10;102834900
-"112";"Entre Ríos";11;102428550
-"113";"Corrientes";5;98982500
-"114";"San Juan";10;98950950
-"115";"Corrientes";4;98914500
-"116";"Corrientes";6;98787000
-"117";"San Juan";11;98544600
-"118";"Corrientes";7;98064500
-"119";"Corrientes";3;97860500
-"120";"Formosa";12;90846018
-"121";"Mendoza";9;81948500
-"122";"Mendoza";8;81107000
-"123";"Entre Ríos";9;80359000
-"124";"San Juan";9;80197500
-"125";"Entre Ríos";8;80070000
-"126";"San Juan";8;79934000
-"127";"Río Negro";12;79369323
-"128";"San Juan";6;76415000
-"129";"San Juan";5;76304500
-"130";"San Juan";4;76015500
-"131";"San Juan";7;76015500
-"132";"San Juan";3;75148500
-"133";"Formosa";10;75051900
-"134";"Neuquén";12;75046263
-"135";"Formosa";11;74834550
-"136";"Entre Ríos";5;74477000
-"137";"Entre Ríos";6;74477000
-"138";"Entre Ríos";4;74417500
-"139";"Entre Ríos";3;74111500
-"140";"Entre Ríos";7;73907500
-"141";"Mendoza";6;71884500
-"142";"Mendoza";7;71714500
-"143";"Mendoza";5;71629500
-"144";"Mendoza";4;71298000
-"145";"Mendoza";3;70643500
-"146";"La Rioja";12;65051760
-"147";"Río Negro";10;63957600
-"148";"Río Negro";11;63759150
-"149";"Neuquén";10;57550500
-"150";"Neuquén";11;57342600
-"151";"Catamarca";12;56395347
-"152";"Formosa";9;56040500
-"153";"Formosa";8;55930000
-"154";"La Rioja";10;55188000
-"155";"La Rioja";11;54923400
-"156";"Formosa";4;53040000
-"157";"Formosa";5;53006000
-"158";"Formosa";6;52963500
-"159";"Formosa";3;52759500
-"160";"Formosa";7;52496000
-"161";"Río Negro";9;48484000
-"162";"Río Negro";8;47770000
-"163";"Catamarca";10;47183850
-"164";"Catamarca";11;47108250
-"165";"Chubut";12;45505353
-"166";"San Luis";12;45464181
-"167";"Neuquén";9;43996000
-"168";"La Rioja";9;43426500
-"169";"Neuquén";8;43273500
-"170";"La Rioja";8;43163000
-"171";"Río Negro";6;42177000
-"172";"Río Negro";5;42092000
-"173";"Río Negro";4;41641500
-"174";"Río Negro";7;41641500
-"175";"Río Negro";3;41463000
-"176";"La Rioja";5;39865000
-"177";"La Rioja";4;39839500
-"178";"La Rioja";3;39814000
-"179";"La Rioja";6;39805500
-"180";"La Rioja";7;39729000
-"181";"Neuquén";4;39431500
-"182";"Neuquén";5;39431500
-"183";"Neuquén";3;39015000
-"184";"Neuquén";6;38641000
-"185";"Neuquén";7;38420000
-"186";"Catamarca";9;37468000
-"187";"Catamarca";8;37434000
-"188";"Chubut";10;35777700
-"189";"Chubut";11;35503650
-"190";"Catamarca";5;35479000
-"191";"Catamarca";4;35470500
-"192";"San Luis";10;35465850
-"193";"San Luis";11;35305200
-"194";"Catamarca";6;35258000
-"195";"Catamarca";3;35190000
-"196";"Catamarca";7;35037000
-"197";"San Luis";9;28959500
-"198";"San Luis";8;28611000
-"199";"Chubut";9;27285000
-"200";"Chubut";8;26894000
-"201";"Santa Cruz";12;26422131
-"202";"San Luis";7;26180000
-"203";"San Luis";5;25814500
-"204";"San Luis";4;25780500
-"205";"San Luis";6;25746500
-"206";"San Luis";3;25712500
-"207";"Santa Cruz";10;22160250
-"208";"Santa Cruz";11;22113000
-"209";"Chubut";6;21998000
-"210";"Chubut";5;21947000
-"211";"Chubut";4;21726000
-"212";"Chubut";7;21683500
-"213";"Chubut";3;21488000
-"214";"La Pampa";12;20411019
-"215";"La Pampa";10;17161200
-"216";"La Pampa";11;17066700
-"217";"La Pampa";9;13362000
-"218";"La Pampa";8;13200500
-"219";"La Pampa";6;12648000
-"220";"La Pampa";4;12588500
-"221";"La Pampa";5;12571500
-"222";"La Pampa";3;12537500
-"223";"La Pampa";7;12248500
-"224";"Tierra del Fuego";12;9984210
-"225";"Tierra del Fuego";10;7352100
-"226";"Tierra del Fuego";11;7257600
-"227";"Santa Cruz";9;6307000
-"228";"Santa Cruz";8;6196500
-"229";"Santa Cruz";7;5329500
-"230";"Tierra del Fuego";9;5278500
-"231";"Tierra del Fuego";8;5261500
-"232";"Santa Cruz";6;5185000
-"233";"Santa Cruz";4;5117000
-"234";"Santa Cruz";5;5108500
-"235";"Santa Cruz";3;4981000
-"236";"Tierra del Fuego";5;4403000
-"237";"Tierra del Fuego";6;4394500
-"238";"Tierra del Fuego";7;4258500
-"239";"Tierra del Fuego";4;4088500
-"240";"Tierra del Fuego";3;4063000
-"241";NA;12;133809
+;provincia;mes;n
+1;Buenos Aires;12;4259469846
+2;Buenos Aires;10;3510542700
+3;Buenos Aires;11;3496651200
+4;Buenos Aires;9;2799687500
+5;Buenos Aires;8;2792590000
+6;Buenos Aires;6;2672357500
+7;Buenos Aires;5;2669884000
+8;Buenos Aires;4;2659854000
+9;Buenos Aires;3;2658162500
+10;Buenos Aires;7;2639896000
+11;Tucuman;12;483719535
+12;Tucuman;10;410120550
+13;Tucuman;11;408797550
+14;Ciudad de Buenos Aires;12;364454544
+15;Tucuman;9;342201500
+16;Tucuman;8;339847000
+17;Tucuman;4;325839000
+18;Tucuman;6;325703000
+19;Tucuman;5;325686000
+20;Tucuman;7;324963500
+21;Tucuman;3;324394000
+22;Ciudad de Buenos Aires;10;293989500
+23;Ciudad de Buenos Aires;11;292118400
+24;Jujuy;12;279650517
+25;Salta;12;276315585
+26;Chaco;12;266835732
+27;Jujuy;10;237176100
+28;Jujuy;11;235985400
+29;Misiones;12;233764323
+30;Ciudad de Buenos Aires;9;229126000
+31;Salta;10;227990700
+32;Ciudad de Buenos Aires;8;227349500
+33;Cordoba;12;227145924
+34;Salta;11;227045700
+35;Chaco;10;221111100
+36;Chaco;11;220185000
+37;Ciudad de Buenos Aires;6;211097500
+38;Ciudad de Buenos Aires;5;211004000
+39;Ciudad de Buenos Aires;4;209278500
+40;Ciudad de Buenos Aires;3;208513500
+41;Ciudad de Buenos Aires;7;206286500
+42;Santa Fe;12;205046853
+43;Santiago del Estero;12;190441086
+44;Misiones;10;189756000
+45;Misiones;11;189255150
+46;Cordoba;10;181600650
+47;Cordoba;11;180636750
+48;Jujuy;9;179741000
+49;Jujuy;8;179477500
+50;Salta;9;177123000
+51;Salta;8;176137000
+52;Chaco;9;171496000
+53;Chaco;8;170731000
+54;Jujuy;3;169107500
+55;Jujuy;4;168971500
+56;Jujuy;5;168954500
+57;Jujuy;6;168402000
+58;Salta;5;167713500
+59;Salta;6;167671000
+60;Salta;4;166438500
+61;Jujuy;7;166243000
+62;Salta;3;166030500
+63;Salta;7;165758500
+64;Santa Fe;10;165601800
+65;Santa Fe;11;164619000
+66;Chaco;5;163208500
+67;Chaco;4;163072500
+68;Chaco;6;162970500
+69;Chaco;3;162664500
+70;Chaco;7;161338500
+71;Corrientes;12;155033166
+72;Santiago del Estero;10;154838250
+73;Santiago del Estero;11;154583100
+74;Misiones;9;147203000
+75;Misiones;8;146310500
+76;Misiones;4;135923500
+77;Misiones;5;135847000
+78;Misiones;6;135838500
+79;Misiones;3;135405000
+80;Misiones;7;134963000
+81;Cordoba;9;134334000
+82;Cordoba;8;133059000
+83;Mendoza;12;132481203
+84;Corrientes;10;131544000
+85;Corrientes;11;130910850
+86;Entre Rios;12;123155745
+87;Cordoba;6;121550000
+88;Santa Fe;9;121431000
+89;Cordoba;5;121201500
+90;Cordoba;4;120912500
+91;Santiago del Estero;9;120666000
+92;Santa Fe;8;120470500
+93;Cordoba;3;120190000
+94;Cordoba;7;119892500
+95;Santiago del Estero;8;119578000
+96;San Juan;12;117329907
+97;Santa Fe;6;113279500
+98;Santa Fe;4;113237000
+99;Santa Fe;5;113237000
+100;Santiago del Estero;6;112540000
+101;Santiago del Estero;7;112268000
+102;Santiago del Estero;5;112191500
+103;Santiago del Estero;4;112166000
+104;Santiago del Estero;3;111919500
+105;Santa Fe;3;111741000
+106;Santa Fe;7;111452000
+107;Mendoza;10;106047900
+108;Corrientes;9;105723000
+109;Mendoza;11;105547050
+110;Corrientes;8;105289500
+111;Entre Rios;10;102834900
+112;Entre Rios;11;102428550
+113;Corrientes;5;98982500
+114;San Juan;10;98950950
+115;Corrientes;4;98914500
+116;Corrientes;6;98787000
+117;San Juan;11;98544600
+118;Corrientes;7;98064500
+119;Corrientes;3;97860500
+120;Formosa;12;90846018
+121;Mendoza;9;81948500
+122;Mendoza;8;81107000
+123;Entre Rios;9;80359000
+124;San Juan;9;80197500
+125;Entre Rios;8;80070000
+126;San Juan;8;79934000
+127;Rio Negro;12;79369323
+128;San Juan;6;76415000
+129;San Juan;5;76304500
+130;San Juan;4;76015500
+131;San Juan;7;76015500
+132;San Juan;3;75148500
+133;Formosa;10;75051900
+134;Neuquen;12;75046263
+135;Formosa;11;74834550
+136;Entre Rios;5;74477000
+137;Entre Rios;6;74477000
+138;Entre Rios;4;74417500
+139;Entre Rios;3;74111500
+140;Entre Rios;7;73907500
+141;Mendoza;6;71884500
+142;Mendoza;7;71714500
+143;Mendoza;5;71629500
+144;Mendoza;4;71298000
+145;Mendoza;3;70643500
+146;La Rioja;12;65051760
+147;Rio Negro;10;63957600
+148;Rio Negro;11;63759150
+149;Neuquen;10;57550500
+150;Neuquen;11;57342600
+151;Catamarca;12;56395347
+152;Formosa;9;56040500
+153;Formosa;8;55930000
+154;La Rioja;10;55188000
+155;La Rioja;11;54923400
+156;Formosa;4;53040000
+157;Formosa;5;53006000
+158;Formosa;6;52963500
+159;Formosa;3;52759500
+160;Formosa;7;52496000
+161;Rio Negro;9;48484000
+162;Rio Negro;8;47770000
+163;Catamarca;10;47183850
+164;Catamarca;11;47108250
+165;Chubut;12;45505353
+166;San Luis;12;45464181
+167;Neuquen;9;43996000
+168;La Rioja;9;43426500
+169;Neuquen;8;43273500
+170;La Rioja;8;43163000
+171;Rio Negro;6;42177000
+172;Rio Negro;5;42092000
+173;Rio Negro;4;41641500
+174;Rio Negro;7;41641500
+175;Rio Negro;3;41463000
+176;La Rioja;5;39865000
+177;La Rioja;4;39839500
+178;La Rioja;3;39814000
+179;La Rioja;6;39805500
+180;La Rioja;7;39729000
+181;Neuquen;4;39431500
+182;Neuquen;5;39431500
+183;Neuquen;3;39015000
+184;Neuquen;6;38641000
+185;Neuquen;7;38420000
+186;Catamarca;9;37468000
+187;Catamarca;8;37434000
+188;Chubut;10;35777700
+189;Chubut;11;35503650
+190;Catamarca;5;35479000
+191;Catamarca;4;35470500
+192;San Luis;10;35465850
+193;San Luis;11;35305200
+194;Catamarca;6;35258000
+195;Catamarca;3;35190000
+196;Catamarca;7;35037000
+197;San Luis;9;28959500
+198;San Luis;8;28611000
+199;Chubut;9;27285000
+200;Chubut;8;26894000
+201;Santa Cruz;12;26422131
+202;San Luis;7;26180000
+203;San Luis;5;25814500
+204;San Luis;4;25780500
+205;San Luis;6;25746500
+206;San Luis;3;25712500
+207;Santa Cruz;10;22160250
+208;Santa Cruz;11;22113000
+209;Chubut;6;21998000
+210;Chubut;5;21947000
+211;Chubut;4;21726000
+212;Chubut;7;21683500
+213;Chubut;3;21488000
+214;La Pampa;12;20411019
+215;La Pampa;10;17161200
+216;La Pampa;11;17066700
+217;La Pampa;9;13362000
+218;La Pampa;8;13200500
+219;La Pampa;6;12648000
+220;La Pampa;4;12588500
+221;La Pampa;5;12571500
+222;La Pampa;3;12537500
+223;La Pampa;7;12248500
+224;Tierra del Fuego;12;9984210
+225;Tierra del Fuego;10;7352100
+226;Tierra del Fuego;11;7257600
+227;Santa Cruz;9;6307000
+228;Santa Cruz;8;6196500
+229;Santa Cruz;7;5329500
+230;Tierra del Fuego;9;5278500
+231;Tierra del Fuego;8;5261500
+232;Santa Cruz;6;5185000
+233;Santa Cruz;4;5117000
+234;Santa Cruz;5;5108500
+235;Santa Cruz;3;4981000
+236;Tierra del Fuego;5;4403000
+237;Tierra del Fuego;6;4394500
+238;Tierra del Fuego;7;4258500
+239;Tierra del Fuego;4;4088500
+240;Tierra del Fuego;3;4063000
+241;NA;12;133809

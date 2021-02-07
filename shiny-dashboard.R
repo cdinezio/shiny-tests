@@ -101,7 +101,7 @@ ui <- dashboardPage(
                     box(title = "Solicitudes por genero",
                         solidHeader = TRUE,
                         width = 4,
-                        plotOutput(outputId = "armas_genero_201999999", height = 1080)
+                        plotOutput(outputId = "potenciar_trabajo_total", height = 1080)
                     )
         
         )
@@ -113,6 +113,7 @@ ui <- dashboardPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
     armas_2019 <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/armas_2019.csv") %>% mutate(fecha_publicacion = dmy(fecha_publicacion))
+    potenciar_trabajo_2020 <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/potenciar_trabajo.csv")
     set.seed(122)
     histdata <- rnorm(500)
     
@@ -134,9 +135,10 @@ server <- function(input, output) {
     })
     
     
-    output$armas_genero_201999999 <- renderPlot({
+    output$potenciar_trabajo_total <- renderPlot({
         
-        armas_2019 %>% count(genero) %>% filter(genero %in% c("masculino","femenino")) %>% ggplot(aes(genero,n, fill = genero)) + geom_col() + theme(legend.position = 0)
+        potenciar_trabajo_2020 %>% ggplot(aes(provincia,n, fill = provincia)) + geom_col() + theme(legend.position = 0) +
+            facet_wrap(.~mes)
     })
     
     
