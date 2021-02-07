@@ -1,11 +1,16 @@
 library(shiny)
+library(tidyverse)
+library(lubridate)
+library(ggplot2)
 library(shinydashboard)
+
+
 
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(
-    skin = "green",
-    dashboardHeader(title = "My dashboard",
+    skin = "blue",
+    dashboardHeader(title = "Argentina",
                     dropdownMenu(type = "messages", 
                                  messageItem(from = "Cristian",message = "Hola!"),
                                  messageItem(from = "Cristian",message = "Hola!"),
@@ -33,8 +38,13 @@ ui <- dashboardPage(
     dashboardSidebar(
         sidebarMenu(
             id = "tabs",
-            menuItem(text = "Dasboard", tabName = "dashboard",icon = icon("dashboard"),badgeLabel = "new"),
-            menuItem(text = "Widgets", tabName = "widgets",icon = icon("dashboard"))
+            menuItem(text = "Informacion general", tabName = "info_general",icon = icon("dashboard"),badgeLabel = "new"),
+            menuItem(text = "Armas de fuego", tabName = "armas_fuego",icon = icon("dashboard")),
+            menuItem(text = "blank", tabName = "a",icon = icon("dashboard")),
+            menuItem(text = "blank", tabName = "b",icon = icon("dashboard")),
+            menuItem(text = "blank", tabName = "c",icon = icon("dashboard")),
+            menuItem(text = "blank", tabName = "d",icon = icon("dashboard"))
+            
         ),
         sidebarMenu(
             id = "tabss",
@@ -49,7 +59,7 @@ ui <- dashboardPage(
     # Adentro le pones tabItems, para referenciar los menuItem de arriba.
     dashboardBody(
         tabItems(
-            tabItem(tabName = "dashboard",
+            tabItem(tabName = "info_general",
                 fluidRow(
                     box(title = "GRAFICO", solidHeader = TRUE,status = "warning",plotOutput("plot1", height = 500)),
                     infoBox(title = "asd"),
@@ -69,8 +79,23 @@ ui <- dashboardPage(
                             )
                         )
             ),
-        tabItem(tabName = "widgets",
-                h2("Widgets tab"))
+        ### Armas de fuego    
+        tabItem(tabName = "armas_fuego",
+                fluidRow(
+                box(title = "Solicitudes por genero",
+                    solidHeader = TRUE,
+                    width = 4,
+                    plotOutput(outputId = "armas_genero_2019", height = 1080)
+                    ),
+                box(title = "Solicitudes por mes",
+                    solidHeader = TRUE,
+                    width = 8,
+                    plotOutput(outputId = "armas_meses_2019", height = 1080)
+                )
+                
+            )
+                
+            )
         )
     ),
 
@@ -79,12 +104,25 @@ ui <- dashboardPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
+    armas_2019 <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/armas_2019.csv") %>% mutate(fecha_publicacion = dmy(fecha_publicacion))
     set.seed(122)
     histdata <- rnorm(500)
     
     output$plot1 <- renderPlot({
         data <- histdata[seq_len(input$slider)]
         hist(data)
+    })
+    
+    ### Armas de fuego - Output
+    output$armas_genero_2019 <- renderPlot({
+        
+        armas_2019 %>% count(genero) %>% filter(genero %in% c("masculino","femenino")) %>% ggplot(aes(genero,n, fill = genero)) + geom_col() + theme(legend.position = 0)
+    })
+    output$armas_meses_2019 <- renderPlot({
+        #armas_2019 <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/armas_2019.csv")
+        armas_2019 %>% mutate(mes = month(fecha_publicacion)) %>% count(mes,genero) %>% 
+            filter(genero %in% c("masculino","femenino")) %>% ggplot(aes(as.factor(mes),n, fill = genero)) + geom_col(position = "dodge") +
+            scale_y_continuous(breaks = seq(0,6000,1000)) + theme(legend.position = 0)
     })
 }
 
