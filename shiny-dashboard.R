@@ -36,19 +36,21 @@ ui <- dashboardPage(
     # Creas un sidebar, y adentro le pones el sidebarMenu() (importante el id), y adentro de eso los items
     # que queres ver en el sidebar. 
     dashboardSidebar(
-        width = 270,
+        width = 320,
         sidebarMenu(
-            id = "tabs",
+            id = "menu_principal",
             menuItem(text = "Informacion general", tabName = "info_general",icon = icon("dashboard"),badgeLabel = "new"),
-            menuItem(text = "Armas de fuego", tabName = "armas_fuego",icon = icon("dashboard")),
-            menuItem(text = "Min. de Desarrollo Social de la Nación", tabName = "min_des_social",icon = icon("dashboard")),
-            menuItem(text = "blank", tabName = "b",icon = icon("dashboard")),
-            menuItem(text = "blank", tabName = "c",icon = icon("dashboard")),
-            menuItem(text = "blank", tabName = "d",icon = icon("dashboard"))
+            menuItem(text = "VER QUE MINISTERIO ES", tabName = "minist",icon = icon("dashboard"),
+                     menuSubItem(text = "Solicitud portación de armas", tabName = "armas_fuego")),
+            menuItem(text = "Min. de Desarrollo Social de la Nación", tabName = "min_des_social",icon = icon("dashboard"),
+                     menuSubItem(text = "Progresar trabajo",tabName = "progresar_trabajo")),
+            menuItem(text = "Min. del Interior, Obras Públicas y Vivienda", tabName = "min_int_obrp_vi",icon = icon("dashboard")),
+            menuItem(text = "MINISTERIO 2", tabName = "c",icon = icon("dashboard")),
+            menuItem(text = "MINISTERIO 3", tabName = "d",icon = icon("dashboard"))
             
         ),
         sidebarMenu(
-            id = "tabss",
+            id = "menu_secundario",
             menuItem(text = "Dasboard1", tabName = "dashboard",icon = icon("dashboard"),badgeLabel = "new"),
             menuItem(text = "Widgets1", tabName = "widgets",icon = icon("dashboard"))
         )
@@ -60,7 +62,7 @@ ui <- dashboardPage(
     # Adentro le pones tabItems, para referenciar los menuItem de arriba.
     dashboardBody(
         tags$head(
-            tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
+            tags$link(rel = "stylesheet", type = "text/css", href = "custom_argentina.css")
         ),
         tabItems(
             tabItem(tabName = "info_general",
@@ -99,7 +101,7 @@ ui <- dashboardPage(
                 )
                 ),
         ## Progresar
-        tabItem(tabName = "min_des_social",
+        tabItem(tabName = "progresar_trabajo",
                 fluidRow(
                         infoBoxOutput(outputId = "total_gastos_programa"),
                         infoBox(title = "Cantidad de beneficiarios:"),
@@ -155,7 +157,7 @@ server <- function(input, output) {
     })
     
     output$total_gastos_programa <- renderInfoBox({
-        infoBox(title = "Total invertido en el programa:",value = paste0("$",format(x = potenciar_trabajo_2020 %>% pull(n) %>% sum,big.mark = ",")))
+        infoBox(title = "Total invertido en el programa durante 2020:",value = paste0("$",format(x = potenciar_trabajo_2020 %>% pull(n) %>% sum,big.mark = ",")))
     })
     
     
