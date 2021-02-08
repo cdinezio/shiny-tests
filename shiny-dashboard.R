@@ -59,6 +59,9 @@ ui <- dashboardPage(
     # Body content
     # Adentro le pones tabItems, para referenciar los menuItem de arriba.
     dashboardBody(
+        tags$head(
+            tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
+        ),
         tabItems(
             tabItem(tabName = "info_general",
                 fluidRow(
