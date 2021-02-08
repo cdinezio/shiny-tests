@@ -5,7 +5,7 @@ library(ggplot2)
 library(shinydashboard)
 library(forcats)
 
-
+nombres <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/nombres.csv")
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(
@@ -40,11 +40,12 @@ ui <- dashboardPage(
         sidebarMenu(
             id = "menu_principal",
             menuItem(text = "Informacion general", tabName = "info_general",icon = icon("dashboard"),badgeLabel = "new"),
-            menuItem(text = "VER QUE MINISTERIO ES", tabName = "minist",icon = icon("dashboard"),
+            menuItem(text = "Min. de Justicia y Derechos Humanos", tabName = "minist",icon = icon("dashboard"),
                      menuSubItem(text = "Solicitud portación de armas", tabName = "armas_fuego")),
             menuItem(text = "Min. de Desarrollo Social de la Nación", tabName = "min_des_social",icon = icon("dashboard"),
                      menuSubItem(text = "Progresar trabajo",tabName = "progresar_trabajo")),
-            menuItem(text = "Min. del Interior, Obras Públicas y Vivienda", tabName = "min_int_obrp_vi",icon = icon("dashboard")),
+            menuItem(text = "Min. del Interior, Obras Públicas y Vivienda", tabName = "min_int_obrp_vi",icon = icon("dashboard"),
+                     menuSubItem(text = "Asignación de nombres",tabName = "nombres")),
             menuItem(text = "MINISTERIO 2", tabName = "c",icon = icon("dashboard")),
             menuItem(text = "MINISTERIO 3", tabName = "d",icon = icon("dashboard"))
             
@@ -115,9 +116,28 @@ ui <- dashboardPage(
                         width = 12,
                         plotOutput(outputId = "potenciar_trabajo_total",height = 1000)
                     )
-        
+                )
+            ),
+        ### Nombres
+        tabItem(tabName = "nombres",
+                fluidRow(
+                    box(
+                    width = 4,
+                    title = "Seleccioná un nombre de la lista:",
+                    solidHeader = TRUE,
+                    status = "info",
+                    selectInput(inputId = "nombres_input",label = "Seleccioná un nombre:",choices = unique(nombres$nombre))),
+                ),
+                fluidRow(
+                    box(title = "Evolución del nombre elegido:",
+                        solidHeader = TRUE,
+                        status = "info",
+                        collapsible = TRUE,
+                        width = 12,
+                        plotOutput(outputId = "nombres_plot",height = 1000)
+                    )
+                )
         )
-    )
 )
 )
 )
@@ -126,6 +146,7 @@ ui <- dashboardPage(
 server <- function(input, output) {
     armas_2019 <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/armas_2019.csv") %>% mutate(fecha_publicacion = dmy(fecha_publicacion))
     potenciar_trabajo_2020 <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/potenciar_trabajo.csv") %>% filter(!is.na(provincia))
+
     set.seed(122)
     histdata <- rnorm(500)
     
@@ -146,7 +167,7 @@ server <- function(input, output) {
             scale_y_continuous(breaks = seq(0,6000,1000)) + theme(legend.position = 0)
     })
     
-    
+    ### Potenciar trabajo
      output$potenciar_trabajo_total <- renderPlot({
         
         potenciar_trabajo_2020 %>% count(provincia, wt = n) %>% mutate(provincia = fct_reorder(provincia,n), n = n / 1000000000) %>% ggplot(aes(provincia,n)) + geom_col(fill = "#1d3557") + theme(legend.position = 0) +
@@ -160,6 +181,15 @@ server <- function(input, output) {
         infoBox(title = "Total invertido en el programa durante 2020:",value = paste0("$",format(x = potenciar_trabajo_2020 %>% pull(n) %>% sum,big.mark = ",")))
     })
     
+    
+    
+    ### Nombres
+    output$nombres_plot <- renderPlot({
+        nombres %>% filter(nombre == input$nombres_input) %>% ggplot(aes(anio,cantidad, fill = anio)) + geom_col() +
+            scale_x_continuous(breaks = seq(1920,2020,5)) + xlab("Año") + ylab("Cantidad de personas") + scale_fill_viridis_c(option = "D") +
+                theme(legend.position = 0)
+            
+    })
     
 }
 
