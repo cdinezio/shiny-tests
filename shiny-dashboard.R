@@ -101,7 +101,7 @@ ui <- dashboardPage(
         ## Progresar
         tabItem(tabName = "min_des_social",
                 fluidRow(
-                        infoBox(title = "Total programa:",value = tags$p("100", style = "font-size: 200%;")),
+                        infoBoxOutput(outputId = "total_gastos_programa"),
                         infoBox(title = "Cantidad de beneficiarios:"),
                         infoBox(title = "Monto mensual:"),
                         ),
@@ -145,13 +145,17 @@ server <- function(input, output) {
     })
     
     
-    output$potenciar_trabajo_total <- renderPlot({
+     output$potenciar_trabajo_total <- renderPlot({
         
         potenciar_trabajo_2020 %>% count(provincia, wt = n) %>% mutate(provincia = fct_reorder(provincia,n), n = n / 1000000000) %>% ggplot(aes(provincia,n)) + geom_col(fill = "#1d3557") + theme(legend.position = 0) +
             coord_flip()  + scale_y_continuous(breaks = seq(0,32,2)) +
                 labs(title = "Pagos por el programa Progresar Trabajo", subtitle = "En miles de millones de pesos") +
                     theme(axis.text.x = element_text(size = 15),axis.text.y = element_text(size = 15),plot.title = element_text(size = 25))
         
+    })
+    
+    output$total_gastos_programa <- renderInfoBox({
+        infoBox(title = "Total invertido en el programa:",value = paste0("$",format(x = potenciar_trabajo_2020 %>% pull(n) %>% sum,big.mark = ",")))
     })
     
     
