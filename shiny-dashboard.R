@@ -6,6 +6,7 @@ library(shinydashboard)
 library(forcats)
 
 nombres <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/nombres.csv")
+autos_robados <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/autos_robados.csv")
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(
