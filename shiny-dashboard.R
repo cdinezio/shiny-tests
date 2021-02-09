@@ -187,7 +187,7 @@ server <- function(input, output) {
     ### Nombres
     output$nombres_plot <- renderPlot({
         nombres %>% filter(nombre == input$nombres_input) %>% ggplot(aes(anio,cantidad, fill = anio)) + geom_col() +
-            scale_x_continuous(breaks = seq(1920,2020,5)) + xlab("Año") + ylab("Cantidad de personas") + scale_fill_viridis_c(option = "D") +
+            scale_x_continuous(breaks = seq(1920,2020,5)) + xlab("Año") + ylab("Cantidad de personas registradas con el nombre") + scale_fill_viridis_c(option = "D",direction = -1) +
                 theme(legend.position = 0)
             
     })
