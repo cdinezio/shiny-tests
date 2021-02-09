@@ -6,7 +6,7 @@ library(shinydashboard)
 library(forcats)
 
 nombres <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/nombres.csv")
-autos_robados <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/autos_robados.csv")
+autos_robados <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/autos_robados.csv") %>% arrange(automotor_marca_descripcion) %>% mutate(titular_domicilio_localidad = str_to_title(titular_domicilio_localidad))
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(
@@ -41,8 +41,9 @@ ui <- dashboardPage(
         sidebarMenu(
             id = "menu_principal",
             menuItem(text = "Informacion general", tabName = "info_general",icon = icon("dashboard"),badgeLabel = "new"),
-            menuItem(text = "Min. de Justicia y Derechos Humanos", tabName = "minist",icon = icon("dashboard"),
-                     menuSubItem(text = "Solicitud portación de armas", tabName = "armas_fuego")),
+            menuItem(text = "Min. de Justicia y Derechos Humanos", tabName = "min_just_der_hum",icon = icon("dashboard"),
+                     menuSubItem(text = "Solicitud portación de armas", tabName = "armas_fuego"),
+                     menuSubItem(text = "Denuncias de robo de vehiculo", tabName = "autos_robados")),
             menuItem(text = "Min. de Desarrollo Social de la Nación", tabName = "min_des_social",icon = icon("dashboard"),
                      menuSubItem(text = "Progresar trabajo",tabName = "progresar_trabajo")),
             menuItem(text = "Min. del Interior, Obras Públicas y Vivienda", tabName = "min_int_obrp_vi",icon = icon("dashboard"),
@@ -90,18 +91,39 @@ ui <- dashboardPage(
         ### Armas de fuego    
         tabItem(tabName = "armas_fuego",
                 fluidRow(
-                box(title = "Solicitudes por genero",
+                box(title = "Solicitudes totales por genero",
+                    status = "info",
                     solidHeader = TRUE,
                     width = 4,
                     plotOutput(outputId = "armas_genero_2019", height = 1080)
                     ),
                 box(title = "Solicitudes por mes",
+                    status = "info",
                     solidHeader = TRUE,
                     width = 8,
                     plotOutput(outputId = "armas_meses_2019", height = 1080)
                 )
                 )
                 ),
+        ### Autos robados
+        tabItem(
+            tabName = "autos_robados",
+            fluidRow(
+                column(
+                    width = 3,selectInput("auto_marca",label = "Seleccione una marca:", choices = unique(autos_robados$automotor_marca_descripcion))),
+                column(
+                    width = 3,
+                    checkboxInput("auto_zona","Ver zona de residencia?"),
+                    checkboxInput("sacar_caba","Remover CABA de residencia?")
+                    )
+
+                
+                ),
+            fluidRow(plotOutput("autos_robados_plot", height = 1080))
+                   
+        ),
+        
+        
         ## Progresar
         tabItem(tabName = "progresar_trabajo",
                 fluidRow(
@@ -159,14 +181,45 @@ server <- function(input, output) {
     ### Armas de fuego - Output
     output$armas_genero_2019 <- renderPlot({
         
-        armas_2019 %>% count(genero) %>% filter(genero %in% c("masculino","femenino")) %>% ggplot(aes(genero,n, fill = genero)) + geom_col() + theme(legend.position = 0)
-    })
+        armas_2019 %>% count(genero) %>% filter(genero %in% c("masculino","femenino")) %>% 
+            ggplot(aes(genero,n, fill = genero)) + geom_col() + theme(legend.position = 0,axis.text.x = element_text(size = 15),axis.text.y = element_text(face = "bold", size = 15)) +
+            scale_y_continuous(labels = scales::comma) + ylab("")
+            
+            })
     output$armas_meses_2019 <- renderPlot({
         #armas_2019 <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/armas_2019.csv")
         armas_2019 %>% mutate(mes = month(fecha_publicacion)) %>% count(mes,genero) %>% 
             filter(genero %in% c("masculino","femenino")) %>% ggplot(aes(as.factor(mes),n, fill = genero)) + geom_col(position = "dodge") +
-            scale_y_continuous(breaks = seq(0,6000,1000)) + theme(legend.position = 0)
+            scale_y_continuous(breaks = seq(0,6000,500), labels = scales::comma) + theme(legend.position = 0,axis.text.x = element_text(size = 15),axis.text.y = element_text(face = "bold", size = 15)) + xlab("") 
     })
+    
+    ### Autos robados - output
+    output$autos_robados_plot <- renderPlot({
+        if (input$auto_zona) {
+            if (input$sacar_caba) {
+                autos_robados %>% filter(automotor_marca_descripcion == input$auto_marca, titular_domicilio_localidad != "C.autonoma De Bs.as") %>% count(titular_domicilio_localidad, sort = TRUE) %>% 
+                    mutate(titular_domicilio_localidad = fct_reorder(titular_domicilio_localidad,n,sum)) %>%
+                    slice(1:20) %>% ggplot(aes(titular_domicilio_localidad,n, fill = titular_domicilio_localidad)) + geom_col() + 
+                    theme(axis.text.x = element_text(angle = 90,size = 15,vjust = 0.5),axis.text.y = element_text(face = "bold", size = 15), legend.position = 0) +
+                    coord_flip() + xlab("") + ylab("Cantidad de robos denunciados durante 2019") +
+                    scale_fill_viridis_d(option = "D", direction = -1)
+            } else {
+            autos_robados %>% filter(automotor_marca_descripcion == input$auto_marca) %>% count(titular_domicilio_localidad, sort = TRUE) %>% 
+                mutate(titular_domicilio_localidad = fct_reorder(titular_domicilio_localidad,n,sum)) %>%
+                slice(1:20) %>% ggplot(aes(titular_domicilio_localidad,n, fill = titular_domicilio_localidad)) + geom_col() + 
+                theme(axis.text.x = element_text(angle = 90,size = 15,vjust = 0.5),axis.text.y = element_text(face = "bold", size = 15), legend.position = 0) +
+                coord_flip() + xlab("") + ylab("Cantidad de robos denunciados durante 2019") +
+                scale_fill_viridis_d(option = "D", direction = -1) }
+        } else {
+            autos_robados %>% filter(automotor_marca_descripcion == input$auto_marca) %>% count(automotor_modelo_descripcion, sort = TRUE) %>% 
+                mutate(automotor_modelo_descripcion = fct_reorder(automotor_modelo_descripcion,n,sum)) %>%
+                slice(1:20) %>% ggplot(aes(automotor_modelo_descripcion,n, fill = automotor_modelo_descripcion)) + geom_col() + 
+                theme(axis.text.x = element_text(angle = 90,size = 15,vjust = 0.5),axis.text.y = element_text(face = "bold", size = 15), legend.position = 0) +
+                coord_flip() + xlab("") + ylab("Cantidad de robos denunciados durante 2019") +
+                scale_fill_viridis_d(option = "D", direction = -1) 
+        }
+    })
+    
     
     ### Potenciar trabajo
      output$potenciar_trabajo_total <- renderPlot({
@@ -174,7 +227,7 @@ server <- function(input, output) {
         potenciar_trabajo_2020 %>% count(provincia, wt = n) %>% mutate(provincia = fct_reorder(provincia,n), n = n / 1000000000) %>% ggplot(aes(provincia,n)) + geom_col(fill = "#1d3557") + theme(legend.position = 0) +
             coord_flip()  + scale_y_continuous(breaks = seq(0,32,2)) +
                 labs(title = "Pagos por el programa Progresar Trabajo", subtitle = "En miles de millones de pesos") +
-                    theme(axis.text.x = element_text(size = 15),axis.text.y = element_text(size = 15),plot.title = element_text(size = 25))
+                    theme(axis.text.x = element_text(size = 15),axis.text.y = element_text(size = 15),plot.title = element_text(size = 25)) + ylab("")
         
     })
     
