@@ -68,6 +68,7 @@ ui <- dashboardPage(
             tags$link(rel = "stylesheet", type = "text/css", href = "custom_argentina.css")
         ),
         tabItems(
+        ########## Informacion general
             tabItem(tabName = "info_general",
                 fluidRow(
                     box(title = "GRAFICO", solidHeader = TRUE,status = "warning",plotOutput("plot1", height = 500)),
@@ -88,6 +89,7 @@ ui <- dashboardPage(
                         )
                         )
             ),
+        ##########################################################################################
         ### Armas de fuego    
         tabItem(tabName = "armas_fuego",
                 fluidRow(
@@ -110,11 +112,14 @@ ui <- dashboardPage(
             tabName = "autos_robados",
             fluidRow(
                 column(
-                    width = 3,selectInput("auto_marca",label = "Seleccione una marca:", choices = unique(autos_robados$automotor_marca_descripcion))),
+                    width = 4,
+                    box(title ="Seleccione una marca:" ,selectInput("auto_marca",label = "Despliegue la lista para ver las opciones", choices = unique(autos_robados$automotor_marca_descripcion)))),
                 column(
-                    width = 3,
+                    width = 5,
+                    box(title = "Checkboxes",
                     checkboxInput("auto_zona","Ver zona de residencia?"),
-                    checkboxInput("sacar_caba","Remover CABA de residencia?")
+                    checkboxInput("sacar_caba","Remover CABA de residencia?"),
+                    )
                     )
 
                 
