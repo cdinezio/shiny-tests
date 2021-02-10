@@ -7,6 +7,7 @@ library(forcats)
 
 nombres <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/nombres.csv")
 autos_robados <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/autos_robados.csv") %>% arrange(automotor_marca_descripcion) %>% mutate(titular_domicilio_localidad = str_to_title(titular_domicilio_localidad))
+condenados <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/condenados.csv")
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(
@@ -43,7 +44,8 @@ ui <- dashboardPage(
             menuItem(text = "Informacion general", tabName = "info_general",icon = icon("dashboard"),badgeLabel = "new"),
             menuItem(text = "Min. de Justicia y Derechos Humanos", tabName = "min_just_der_hum",icon = icon("dashboard"),
                      menuSubItem(text = "Solicitud portación de armas", tabName = "armas_fuego"),
-                     menuSubItem(text = "Denuncias de robo de vehiculo", tabName = "autos_robados")),
+                     menuSubItem(text = "Denuncias de robo de vehiculo", tabName = "autos_robados"),
+                     menuSubItem(text = "Condenados en juicio", tabName = "condenados_tab")),
             menuItem(text = "Min. de Desarrollo Social de la Nación", tabName = "min_des_social",icon = icon("dashboard"),
                      menuSubItem(text = "Progresar trabajo",tabName = "progresar_trabajo")),
             menuItem(text = "Min. del Interior, Obras Públicas y Vivienda", tabName = "min_int_obrp_vi",icon = icon("dashboard"),
@@ -128,6 +130,26 @@ ui <- dashboardPage(
                    
         ),
         
+        ### Condenados en juicio
+        tabItem(
+            tabName = "condenados_tab",
+            fluidRow(
+                column(
+                    width = 4,
+                    box(title ="Seleccione una marca:" ,selectInput("auto_marca",label = "Despliegue la lista para ver las opciones", choices = unique(autos_robados$automotor_marca_descripcion)))),
+                column(
+                    width = 5,
+                    box(title = "Checkboxes",
+                        checkboxInput("auto_zona","Ver zona de residencia?"),
+                        checkboxInput("sacar_caba","Remover CABA de residencia?"),
+                    )
+                )
+                
+                
+            ),
+            fluidRow(plotOutput("autos_robados_plot", height = 1080))
+            
+        ),
         
         ## Progresar
         tabItem(tabName = "progresar_trabajo",
