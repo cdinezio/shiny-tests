@@ -7,32 +7,21 @@ library(forcats)
 
 nombres <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/nombres.csv")
 autos_robados <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/autos_robados.csv") %>% arrange(automotor_marca_descripcion) %>% mutate(titular_domicilio_localidad = str_to_title(titular_domicilio_localidad))
-condenados <- read_csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/condenados.csv")
+condenados <- read.csv2("https://raw.githubusercontent.com/cdinezio/shiny-tests/main/datasets/condenados.csv",encoding = "UTF-8" ) %>% as_tibble() %>% mutate(delito = as.character(delito)) %>% 
+    #mutate(delito = str_replace_all(delito,"ãƒ<U+00B0>|ãƒ<U+FFFD>","ú"),delito = str_replace_all(delito,"ãƒâ³M","óm"),delito = str_replace_all(delito,"<U+FFFD>","N")) %>%
+    mutate(delito = case_when(
+        str_detect(delito,"Estupef|23737") ~ "Tenencia y Trafico de Estupefacientes",
+        str_detect(delito,"Contra La Administraci") ~ "Contra la Administracion Publica",
+        str_detect(delito,"Financiero") ~ "Contra el ordern Economico y Financiero",
+        str_detect(delito,"Contra La Seguridad P") ~ "Contra la Seguridad Publica",
+        TRUE ~ delito
+    )) %>% filter(delito %in% c("Contra La Propiedad","Tenencia y Trafico de Estupefacientes","Contra Las Personas","Contra La Integridad Sexual","Contra La Libertad","Contra la Administracion Publica","Otras Leyes","Contra la Seguridad Publica","Contra el ordern Economico y Financiero"))
 
-# Define UI for application that draws a histogram
+# Defino la UI
 ui <- dashboardPage(
     skin = "blue",
-    dashboardHeader(title = "Argentina",
-                    dropdownMenu(type = "messages", 
-                                 messageItem(from = "Cristian",message = "Hola!"),
-                                 messageItem(from = "Cristian",message = "Hola!"),
-                                 messageItem(from = "Cristian",message = "Hola!"),
-                                 messageItem(from = "Cristian",message = "Hola!",)
-                                 ),
-                    dropdownMenu(type = "notifications", 
-                                 notificationItem(text = "AVISO IMPORTANTE",status = "warning"),
-                                 notificationItem(text = "AVISO IMPORTANTE", status = "danger"),
-                                 notificationItem(text = "AVISO IMPORTANTE")
-                    ),
-                    dropdownMenu(type = "tasks", 
-                                 taskItem(value = 90, color = "green",text = "Docu check"),
-                                 taskItem(value = 40, color = "red",text = "Docu check"),
-                                 taskItem(value = 90, color = "yellow",text = "Docu check")
-                    )
-                    
-                    
-                    
-                    ),
+    dashboardHeader(title = "Argentina, en un vistazo",titleWidth = 350),
+    
     
     # Sidebar content
     # Creas un sidebar, y adentro le pones el sidebarMenu() (importante el id), y adentro de eso los items
@@ -49,22 +38,12 @@ ui <- dashboardPage(
             menuItem(text = "Min. de Desarrollo Social de la Nación", tabName = "min_des_social",icon = icon("dashboard"),
                      menuSubItem(text = "Progresar trabajo",tabName = "progresar_trabajo")),
             menuItem(text = "Min. del Interior, Obras Públicas y Vivienda", tabName = "min_int_obrp_vi",icon = icon("dashboard"),
-                     menuSubItem(text = "Asignación de nombres",tabName = "nombres")),
-            menuItem(text = "MINISTERIO 2", tabName = "c",icon = icon("dashboard")),
-            menuItem(text = "MINISTERIO 3", tabName = "d",icon = icon("dashboard"))
-            
+                     menuSubItem(text = "Asignación de nombres",tabName = "nombres"))
+            )
         ),
-        sidebarMenu(
-            id = "menu_secundario",
-            menuItem(text = "Dasboard1", tabName = "dashboard",icon = icon("dashboard"),badgeLabel = "new"),
-            menuItem(text = "Widgets1", tabName = "widgets",icon = icon("dashboard"))
-        )
-    ),
-    
     
     
     # Body content
-    # Adentro le pones tabItems, para referenciar los menuItem de arriba.
     dashboardBody(
         #tags$head(
          #   tags$link(rel = "stylesheet", type = "text/css", href = "custom_argentina.css")
@@ -72,24 +51,30 @@ ui <- dashboardPage(
         tabItems(
         ########## Informacion general
             tabItem(tabName = "info_general",
-                fluidRow(
-                    box(title = "GRAFICO", solidHeader = TRUE,status = "warning",plotOutput("plot1", height = 500)),
-                    infoBox(title = "asd"),
-                    tabBox(
-                        tabPanel("hola",icon = shiny::icon("gear")),
-                        tabPanel("otra"),
-                        
-                        height = 200),
-                    box(
-                        title = "Controls",
-                        sliderInput("slider", "Number of observations:", min = 0,max = 25,value = 10),
-                        textInput("id1","Insert your name:"),
-                        collapsible = TRUE,
-                        footer = "Select the relevant properties",
-                        status = "info",
-                        p("I dont know where this is ending up"),
-                        )
-                        )
+                    column(
+                        width = 6,
+                        fluidRow(infoBox(
+                            title = "FUENTE",
+                            value = "Los datos provienen de www.datos.gob.ar, y son preprocesados para facilitar su manejo. Los datos usados pueden encontrarse en Github.",
+                            width = 12)),
+                        fluidRow(infoBox(
+                            title = "INFORMACION",
+                            value = "Para ver los diferentes graficos disponibles, haga click en las pestañas de la izquierda para desplegar el menu. De allí, elija la categoría de su interés",
+                            width = 12)),
+                        fluidRow(infoBox(
+                            title = "INTERES",
+                            value = "Los gráficos son meramente informativos. No hay intención de resaltar ninguna característica en particular. De parecer, es mera coincidencia.",
+                            width = 12)),
+                        fluidRow(infoBox(
+                            title = "TEMPORALIDAD",
+                            value = "Todos los graficos contienen datos de 2019. La actualizacion para incluir datos del 2020 está en curso",
+                            width = 12))
+                    ),
+                    column(
+                    width = 6,
+                    box(title = "Sobre mi", solidHeader = TRUE,status = "warning", height = 500,width = 12),
+                    ),
+                
             ),
         ##########################################################################################
         ### Armas de fuego    
@@ -109,6 +94,7 @@ ui <- dashboardPage(
                 )
                 )
                 ),
+        ####################################################################################################################
         ### Autos robados
         tabItem(
             tabName = "autos_robados",
@@ -129,28 +115,23 @@ ui <- dashboardPage(
             fluidRow(plotOutput("autos_robados_plot", height = 1080))
                    
         ),
-        
+        ####################################################################################################################
         ### Condenados en juicio
         tabItem(
             tabName = "condenados_tab",
             fluidRow(
-                column(
-                    width = 4,
-                    box(title ="Seleccione una marca:" ,selectInput("auto_marca",label = "Despliegue la lista para ver las opciones", choices = unique(autos_robados$automotor_marca_descripcion)))),
-                column(
-                    width = 5,
-                    box(title = "Checkboxes",
-                        checkboxInput("auto_zona","Ver zona de residencia?"),
-                        checkboxInput("sacar_caba","Remover CABA de residencia?"),
-                    )
-                )
-                
-                
-            ),
-            fluidRow(plotOutput("autos_robados_plot", height = 1080))
+                    box(
+                        status = "info",
+                        solidHeader = TRUE,
+                        title ="Seleccione una opcion para modificar los datos (uno a la vez):" ,
+                        checkboxInput("condenado_sexo","Graficar por sexo"),
+                        checkboxInput("condenado_profesion","Graficar por profesion"),
+                        ),
+                ),
+            fluidRow(plotOutput("condenados_plot", height = 1000))
             
         ),
-        
+        ####################################################################################################################
         ## Progresar
         tabItem(tabName = "progresar_trabajo",
                 fluidRow(
@@ -244,6 +225,21 @@ server <- function(input, output) {
                 theme(axis.text.x = element_text(angle = 90,size = 15,vjust = 0.5),axis.text.y = element_text(face = "bold", size = 15), legend.position = 0) +
                 coord_flip() + xlab("") + ylab("Cantidad de robos denunciados durante 2019") +
                 scale_fill_viridis_d(option = "D", direction = -1) 
+        }
+    })
+    
+    ### Condenados en juicio - Plot
+    output$condenados_plot <- renderPlot({
+        if (input$condenado_sexo) {
+            condenados %>% filter(genero %in% c("Masculino","Femenino","Trans")) %>% count(genero,delito) %>% mutate(delito = fct_reorder(delito,n,sum)) %>% ggplot(aes(delito,n, fill = genero)) + geom_col(position = "dodge") +
+                theme(legend.position = "bottom",axis.text.x = element_text(size = 15))  + xlab("") + ylab("Cantidad de condenados")
+        } else if (input$condenado_profesion) {
+            top_profesiones <- condenados %>% count(profesion, sort = TRUE) %>% slice(1:10) %>% pull(profesion)
+            condenados %>% filter(genero %in% c("Masculino","Femenino","Trans"), profesion %in% top_profesiones) %>% count(genero,profesion,delito) %>% mutate(delito = fct_reorder(delito,n,sum)) %>% ggplot(aes(delito,n, fill = profesion)) + geom_col(position = "dodge") +
+                theme(legend.position = "bottom",axis.text.x = element_text(size = 15))  + xlab("") + ylab("Cantidad de condenados")
+        } else {
+            condenados %>% filter(genero %in% c("Masculino","Femenino","Trans")) %>% count(delito) %>% mutate(delito = fct_reorder(delito,n,sum)) %>% ggplot(aes(delito,n, fill = delito)) + geom_col() +
+                theme(legend.position = 0,axis.text.x = element_text(size = 15))  + xlab("") + ylab("Cantidad de condenados")
         }
     })
     
